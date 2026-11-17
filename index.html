@@ -3,231 +3,435 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utkristh Weds Kriti | Royal Wedding Invitation (Nov 30 – Dec 2, 2026)</title>
+  <title>Utkristh & Kriti — Royal Wedding Invitation | Nov 30 – Dec 2, 2026</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            damaskBase: '#DFB695',
-            damaskDeep: '#C99870',
-            ivoryCard: '#FFFBF5',
-            ivoryWarm: '#F9F1E4',
-            goldRoyal: '#B6843A',
-            goldBright: '#D4A857',
-            goldDark: '#8A5E1B',
-            bronzeText: '#5C3A21',
-            maroonAccent: '#7A2021',
+            damask: {
+              light: '#E6B996',
+              DEFAULT: '#D5A07A',
+              dark: '#B87D55',
+              deep: '#8E5835'
+            },
+            ivory: {
+              DEFAULT: '#FFFDF9',
+              warm: '#FCF8F0',
+              parchment: '#F7EFE1'
+            },
+            gold: {
+              light: '#E8D08B',
+              DEFAULT: '#C59B27',
+              antique: '#AA8232',
+              dark: '#7D5C1D',
+              bronze: '#8A6633'
+            },
+            royal: {
+              maroon: '#6E1E2A',
+              emerald: '#1E4D3B',
+              plum: '#4A2545'
+            }
           },
           fontFamily: {
             cinzel: ['Cinzel', 'serif'],
-            cinzelDec: ['Cinzel Decorative', 'serif'],
             cormorant: ['Cormorant Garamond', 'serif'],
             script: ['Great Vibes', 'cursive'],
-            hindi: ['Tiro Devanagari Hindi', 'serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            sanskrit: ['Noto Serif Devanagari', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
           }
         }
       }
     };
 
-    // Immediate global handler for opening the invitation gate
-    window.openRoyalInvitation = function(withMusic) {
-      var gate = document.getElementById('gate-overlay');
-      if (gate) {
-        gate.classList.add('gate-open');
-        setTimeout(function() {
-          gate.style.display = 'none';
-        }, 700);
+    /* =====================================================================
+       EARLY BULLETPROOF GATE OPENER (Defined in <head> so it is ALWAYS ready)
+       ===================================================================== */
+    window.openRoyalInvitation = function () {
+      try {
+        var overlay = document.getElementById('gate-overlay');
+        if (overlay) {
+          overlay.classList.add('gate-open');
+          overlay.style.pointerEvents = 'none';
+          setTimeout(function () {
+            if (overlay) {
+              overlay.style.display = 'none';
+            }
+          }, 700);
+        }
+        if (document.body) {
+          document.body.style.overflow = 'auto';
+        }
+      } catch (domErr) {
+        console.warn('Gate DOM fallback:', domErr);
       }
-      try {
-        if (typeof window.triggerPetalBurst === 'function') {
-          window.triggerPetalBurst(36);
-        }
-      } catch (e) {}
-      try {
-        if (withMusic && typeof window.startRaagYamanAudio === 'function') {
-          window.startRaagYamanAudio();
-        }
-      } catch (e) {}
-    };
 
-    // Universal Directions handler that guarantees opening Google Maps
-    window.openDirections = function(e, url, venueName) {
-      if (e) {
-        e.stopPropagation();
-      }
+      // Safely trigger petal burst without ever blocking gate open
       try {
-        var newWin = window.open(url, '_blank', 'noopener,noreferrer');
-        if (newWin) {
-          newWin.opener = null;
-          return false;
+        if (typeof window.triggerPetalShower === 'function') {
+          window.triggerPetalShower();
         }
-      } catch (err) {}
-      // Fallback if inside a restricted preview iframe
-      try {
-        window.top.location.href = url;
-      } catch (err2) {
-        window.location.href = url;
+      } catch (petalErr) {
+        console.warn('Petal shower warning:', petalErr);
       }
-      return true;
+
+      // Safely start Web Audio music without ever blocking gate open
+      try {
+        if (typeof window.startFestiveAudio === 'function') {
+          window.startFestiveAudio();
+        }
+      } catch (audioErr) {
+        console.warn('Audio autoplay warning:', audioErr);
+      }
     };
   </script>
 
   <style>
     :root {
-      --bg-damask: #DFB695;
-      --card-ivory: #FFFBF4;
-      --gold-primary: #B6843A;
-      --gold-light: #DFB76C;
-      --gold-dark: #875C1D;
-      --text-brown: #5A3B22;
+      --gold-primary: #B68A35;
+      --gold-light: #DFC17B;
+      --gold-dark: #7B5819;
+      --peach-damask: #D5A07A;
+      --ivory-bg: #FFFDF9;
     }
 
     body {
-      background-color: var(--bg-damask);
-      color: var(--text-brown);
+      background-color: #D5A07A;
+      color: #5C4328;
       font-family: 'Cormorant Garamond', serif;
       overflow-x: hidden;
-      margin: 0;
-      padding: 0;
     }
 
-    /* Authentic Indian Damask Floral Pattern Backdrop */
+    /* Ensure decorative overlays NEVER block clicks */
+    .decorative-layer,
+    #petalCanvas {
+      pointer-events: none !important;
+    }
+
+    /* Authentic Peach-Gold Damask Floral SVG Background matching the physical invitation */
     .damask-bg {
-      background-color: #DFB695;
-      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23F3DAC2' fill-opacity='0.44'%3E%3Cpath d='M60 10 C65 25 80 28 92 20 C84 35 90 48 108 52 C90 56 84 69 92 84 C80 76 65 79 60 96 C55 79 40 76 28 84 C36 69 30 56 12 52 C30 48 36 35 28 20 C40 28 55 25 60 10 Z'/%3E%3Cpath d='M60 28 C63 38 72 42 80 38 C74 46 78 52 88 52 C78 52 74 58 80 66 C72 62 63 66 60 76 C57 66 48 62 40 66 C46 58 42 52 32 52 C42 52 46 46 40 38 C48 42 57 38 60 28 Z' fill='%23C9976E' fill-opacity='0.28'/%3E%3Ccircle cx='60' cy='52' r='5' fill='%23FFF5EB' fill-opacity='0.5'/%3E%3Ccircle cx='0' cy='0' r='16'/%3E%3Ccircle cx='120' cy='0' r='16'/%3E%3Ccircle cx='0' cy='120' r='16'/%3E%3Ccircle cx='120' cy='120' r='16'/%3E%3C/g%3E%3C/svg%3E");
-      background-attachment: fixed;
+      background-color: #D6A17C;
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23E7BE9E' fill-opacity='0.52'%3E%3Cpath d='M60 10 C65 25, 80 30, 95 25 C80 40, 85 55, 105 60 C85 65, 80 80, 95 95 C80 90, 65 95, 60 110 C55 95, 40 90, 25 95 C40 80, 35 65, 15 60 C35 55, 40 40, 25 25 C40 30, 55 25, 60 10 Z'/%3E%3Cpath d='M60 28 C63 38, 72 42, 82 38 C72 48, 75 56, 88 60 C75 64, 72 72, 82 82 C72 78, 63 82, 60 92 C57 82, 48 78, 38 82 C48 72, 45 64, 32 60 C45 56, 48 48, 38 38 C48 42, 57 38, 60 28 Z' fill='%23C78C63' fill-opacity='0.35'/%3E%3Ccircle cx='60' cy='60' r='6' fill='%23F3DAC4' fill-opacity='0.55'/%3E%3Cpath d='M0 0 C15 5, 25 15, 30 30 C15 25, 5 15, 0 0 Z M120 0 C105 5, 95 15, 90 30 C105 25, 115 15, 120 0 Z M0 120 C15 115, 25 105, 30 90 C15 95, 5 105, 0 120 Z M120 120 C105 115, 95 105, 90 90 C105 95, 115 105, 120 120 Z'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Shimmering Gold Foil Typography */
-    .gold-foil-text {
-      background: linear-gradient(135deg, #7B5014 0%, #B88738 25%, #DFB86B 50%, #B38030 75%, #754A10 100%);
+    /* Subtle Ivory Paper Texture */
+    .ivory-card-texture {
+      background-color: #FFFDF8;
+      background-image: radial-gradient(circle at 50% 25%, rgba(255, 253, 248, 1) 0%, rgba(250, 243, 229, 1) 100%);
+    }
+
+    /* Metallic Gold Text Gradient */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #8A6421 0%, #C89D3C 35%, #9B7228 55%, #D6AF53 80%, #835E1B 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-size: 200% auto;
-      animation: shineGold 6s linear infinite;
     }
 
-    @keyframes shineGold {
-      to { background-position: 200% center; }
+    /* Royal Jharokha Card Frame */
+    .jharokha-card {
+      position: relative;
+      background: #FFFDF8;
+      border: 2.5px solid #C69E47;
+      box-shadow:
+        0 0 0 5px #FFFDF8,
+        0 0 0 7px #B88E38,
+        0 25px 60px rgba(74, 42, 18, 0.35);
     }
 
-    /* Gentle Pendulum Sway for Symmetrical Hanging Jhumars */
-    @keyframes swaySlow {
+    /* Hanging Jhumar Gentle Sway Animation */
+    @keyframes gentleSway {
       0%, 100% { transform: rotate(-2.2deg); }
       50% { transform: rotate(2.2deg); }
     }
-    .jhumar-sway-a {
+
+    .jhumar-sway {
       transform-origin: top center;
-      animation: swaySlow 4.8s ease-in-out infinite;
-    }
-    .jhumar-sway-b {
-      transform-origin: top center;
-      animation: swaySlow 5.6s ease-in-out infinite reverse;
+      animation: gentleSway 4.5s ease-in-out infinite;
     }
 
-    /* Royal Gate Opening Transition */
+    .jhumar-sway-delayed {
+      transform-origin: top center;
+      animation: gentleSway 5.2s ease-in-out 1.2s infinite;
+    }
+
+    /* Floating Glow Pulse */
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(197, 155, 39, 0.35)); }
+      50% { filter: drop-shadow(0 0 14px rgba(197, 155, 39, 0.75)); }
+    }
+
+    .ganesha-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    /* Gate Opening Transition */
     #gate-overlay {
-      transition: opacity 0.7s ease, visibility 0.7s ease;
+      transition: opacity 0.68s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.68s;
     }
     #gate-overlay.gate-open {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .gate-left, .gate-right {
+      transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+      pointer-events: none !important;
     }
     #gate-overlay.gate-open .gate-left {
-      transform: translateX(-100%);
+      transform: translateX(-105%);
     }
     #gate-overlay.gate-open .gate-right {
-      transform: translateX(100%);
+      transform: translateX(105%);
     }
-    .gate-door {
-      transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-
-    /* Dotted leader line for ceremony times */
-    .dotted-leader {
-      flex-grow: 1;
-      border-bottom: 2px dotted #B6843A;
-      margin: 0 10px;
-      position: relative;
-      top: -5px;
-      opacity: 0.65;
+    #gate-overlay.gate-open #sealContainer {
+      transform: scale(0.92);
+      opacity: 0;
     }
 
-    /* Floating Petal Canvas */
-    #petal-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none !important;
-      z-index: 35;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F5E6D3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #B88E38;
+      border-radius: 9999px;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #FFFDF8 !important;
+      }
+      .jharokha-card {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+      }
     }
   </style>
 </head>
+<body class="damask-bg min-h-screen selection:bg-gold/20 selection:text-gold-dark relative">
 
-<body class="damask-bg min-h-screen selection:bg-goldRoyal selection:text-white">
+  <!-- Interactive Particle Canvas for Gold Dust & Marigold/Rose Petals -->
+  <canvas id="petalCanvas" class="decorative-layer fixed inset-0 pointer-events-none z-40 no-print"></canvas>
 
-  <!-- Marigold & Rose Petal Canvas -->
-  <canvas id="petal-canvas"></canvas>
+  <!-- Custom Toast Notification -->
+  <div id="toastBox" class="decorative-layer fixed bottom-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-3 no-print">
+    <div class="bg-[#4B3219]/95 text-ivory px-5 py-3 rounded-full shadow-2xl border border-gold/60 flex items-center gap-2.5 text-sm font-sans">
+      <span class="text-gold-light">✦</span>
+      <span id="toastText">Copied to clipboard!</span>
+    </div>
+  </div>
 
-  <!-- ===================================================================== -->
-  <!-- ROYAL GATE OVERLAY (Interactive Welcome Envelope)                     -->
-  <!-- ===================================================================== -->
-  <div id="gate-overlay" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
-    <!-- Left Royal Door -->
-    <div class="gate-door gate-left absolute left-0 top-0 bottom-0 w-1/2 bg-[#2D160B] border-r-2 border-goldBright/60 flex items-center justify-end pr-6 shadow-2xl">
-      <div class="w-full h-[90%] border-y border-l border-goldBright/30 ml-4 rounded-l-2xl opacity-40 pointer-events-none"></div>
+  <!-- =========================================================
+       ROYAL JHAROKHA ENVELOPE / GATE REVEAL OVERLAY (#gate-overlay)
+       ========================================================= -->
+  <div id="gate-overlay" class="fixed inset-0 z-50 flex items-center justify-center overflow-hidden no-print">
+    <!-- Left Royal Gate (Mirrored Symmetrically with Right Gate) -->
+    <div class="gate-left decorative-layer absolute inset-y-0 left-0 w-1/2 damask-bg border-r-2 border-gold/70 shadow-2xl flex items-center justify-end pr-4">
+      <div class="hidden sm:block opacity-35 pointer-events-none">
+        <svg width="180" height="400" viewBox="0 0 180 400" fill="none">
+          <path d="M180 20 C90 20, 30 90, 30 200 C30 310, 90 380, 180 380" stroke="#7D5C1D" stroke-width="2" stroke-dasharray="6 6"/>
+          <path d="M180 60 C110 60, 60 110, 60 200 C60 290, 110 340, 180 340" stroke="#7D5C1D" stroke-width="1.5"/>
+          <path d="M180 110 C130 110, 95 145, 95 200 C95 255, 130 290, 180 290" stroke="#7D5C1D" stroke-width="1.2"/>
+          <circle cx="95" cy="200" r="6" fill="#7D5C1D"/>
+        </svg>
+      </div>
     </div>
 
-    <!-- Right Royal Door -->
-    <div class="gate-door gate-right absolute right-0 top-0 bottom-0 w-1/2 bg-[#2D160B] border-l-2 border-goldBright/60 flex items-center justify-start pl-6 shadow-2xl">
-      <div class="w-full h-[90%] border-y border-r border-goldBright/30 mr-4 rounded-r-2xl opacity-40 pointer-events-none"></div>
+    <!-- Right Royal Gate (Mirrored Symmetrically with Left Gate) -->
+    <div class="gate-right decorative-layer absolute inset-y-0 right-0 w-1/2 damask-bg border-l-2 border-gold/70 shadow-2xl flex items-center justify-start pl-4">
+      <div class="hidden sm:block opacity-35 pointer-events-none">
+        <svg width="180" height="400" viewBox="0 0 180 400" fill="none">
+          <path d="M0 20 C90 20, 150 90, 150 200 C150 310, 90 380, 0 380" stroke="#7D5C1D" stroke-width="2" stroke-dasharray="6 6"/>
+          <path d="M0 60 C70 60, 120 110, 120 200 C120 290, 70 340, 0 340" stroke="#7D5C1D" stroke-width="1.5"/>
+          <path d="M0 110 C50 110, 85 145, 85 200 C85 255, 50 290, 0 290" stroke="#7D5C1D" stroke-width="1.2"/>
+          <circle cx="85" cy="200" r="6" fill="#7D5C1D"/>
+        </svg>
+      </div>
     </div>
 
-    <!-- Center Symmetrical Royal Mandala Crest & Action Button -->
-    <div class="relative z-10 text-center px-5 max-w-md mx-auto flex flex-col items-center">
-      <p class="font-hindi text-goldBright text-lg md:text-xl tracking-widest mb-2">|| श्री गणेशाय नमः ||</p>
-      <p class="font-cinzel text-xs uppercase tracking-[0.3em] text-ivoryWarm/80 mb-5">The Kohli &amp; Mahajan Families Invite You</p>
+    <!-- Center Royal Seal Card -->
+    <div id="sealContainer" class="relative z-50 max-w-md w-[92%] mx-auto ivory-card-texture jharokha-card rounded-3xl p-6 sm:p-9 text-center transition-all duration-500 pointer-events-auto">
+      <!-- Sacred Top Invocation -->
+      <p class="font-sanskrit text-gold-dark text-sm sm:text-base tracking-wider mb-1">|| श्री गणेशाय नमः ||</p>
 
-      <!-- 100% Radially & Bilaterally Symmetrical 8-Petal Royal Lotus Mandala Seal -->
+      <!-- Clickable Strictly Symmetrical 8-Petal Royal Lotus & Mandala Crest ("U ✦ K") -->
       <button
+        id="seal-trigger"
         type="button"
-        onclick="window.openRoyalInvitation(true)"
+        onclick="window.openRoyalInvitation()"
         aria-label="Open Royal Wedding Invitation"
-        class="group relative w-52 h-52 md:w-60 md:h-60 flex items-center justify-center rounded-full focus:outline-none transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+        style="pointer-events: auto; z-index: 50;"
+        class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto my-2 flex items-center justify-center ganesha-glow cursor-pointer hover:scale-105 active:scale-95 transition-transform focus:outline-none"
       >
-        <span class="absolute inset-1 rounded-full bg-goldBright/20 animate-ping pointer-events-none"></span>
-
-        <svg viewBox="0 0 240 240" class="w-full h-full drop-shadow-[0_12px_28px_rgba(0,0,0,0.65)] pointer-events-none">
+        <svg viewBox="0 0 200 200" class="w-full h-full pointer-events-none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="sealBgGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#FFFDF8" />
-              <stop offset="68%" stop-color="#F7E5C8" />
-              <stop offset="100%" stop-color="#D9AC63" />
-            </radialGradient>
-            <linearGradient id="sealGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#7B5014" />
-              <stop offset="35%" stop-color="#C8963E" />
-              <stop offset="50%" stop-color="#F3D489" />
-              <stop offset="65%" stop-color="#C8963E" />
-              <stop offset="100%" stop-color="#6E450E" />
+            <linearGradient id="royalCrestGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8A6421"/>
+              <stop offset="30%" stop-color="#DFC075"/>
+              <stop offset="50%" stop-color="#B88B2E"/>
+              <stop offset="70%" stop-color="#DFC075"/>
+              <stop offset="100%" stop-color="#7E5B17"/>
             </linearGradient>
+            <radialGradient id="crestCenterBg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFDF9"/>
+              <stop offset="100%" stop-color="#F7EAD2"/>
+            </radialGradient>
           </defs>
 
-          <!-- 8 Radially Symmetrical Outer Lotus Petals (0, 45, 90, 135, 180, 225, 270, 315 deg) -->
-          <g transform="translate(120,120)">
-            <g transform="rotate(0)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
-            <g transform="rotate(45)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
-            <g transform="rotate(90)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
-            <g transform="rotate(135)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
-            <g transform="rotate(180)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
-            <g transform="rotate(225)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
+          <!-- Top Symmetrical Royal Kalash / Crown Finial (Central Axis X = 100) -->
+          <path d="M100 4 L106 14 L100 22 L94 14 Z" fill="url(#royalCrestGold)"/>
+          <path d="M84 22 Q100 12 116 22" stroke="url(#royalCrestGold)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="84" cy="22" r="2" fill="#B88B2E"/>
+          <circle cx="116" cy="22" r="2" fill="#B88B2E"/>
+
+          <!-- Bottom Symmetrical Mirror Finial (Central Axis X = 100) -->
+          <path d="M100 196 L106 186 L100 178 L94 186 Z" fill="url(#royalCrestGold)"/>
+          <path d="M84 178 Q100 188 116 178" stroke="url(#royalCrestGold)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="84" cy="178" r="2" fill="#B88B2E"/>
+          <circle cx="116" cy="178" r="2" fill="#B88B2E"/>
+
+          <!-- Left & Right Mirrored Ornamental Filigree Wings -->
+          <path d="M4 100 L14 94 L22 100 L14 106 Z" fill="url(#royalCrestGold)"/>
+          <path d="M22 84 Q12 100 22 116" stroke="url(#royalCrestGold)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M196 100 L186 94 L178 100 L186 106 Z" fill="url(#royalCrestGold)"/>
+          <path d="M178 84 Q188 100 178 116" stroke="url(#royalCrestGold)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- 8-Fold Radially Symmetrical Royal Lotus Petals (Around X=100, Y=100) -->
+          <g stroke="url(#royalCrestGold)" stroke-width="1.8" fill="#E9CFA0" fill-opacity="0.32">
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(45 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(90 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(135 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(180 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(225 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(270 100 100)"/>
+            <path d="M100 20 C114 42, 114 62, 100 80 C86 62, 86 42, 100 20 Z" transform="rotate(315 100 100)"/>
+          </g>
+
+          <!-- Outer & Inner Concentric Mandala Rings -->
+          <circle cx="100" cy="100" r="64" fill="url(#crestCenterBg)" stroke="url(#royalCrestGold)" stroke-width="3.2"/>
+          <circle cx="100" cy="100" r="57" fill="none" stroke="#B88B2E" stroke-width="1" stroke-dasharray="3 3"/>
+          <circle cx="100" cy="100" r="52" fill="none" stroke="url(#royalCrestGold)" stroke-width="1.5"/>
+
+          <!-- 8 Symmetrical Cardinal & Diagonal Pearl Dots -->
+          <circle cx="100" cy="36" r="2.6" fill="#8A6421"/>
+          <circle cx="100" cy="164" r="2.6" fill="#8A6421"/>
+          <circle cx="36" cy="100" r="2.6" fill="#8A6421"/>
+          <circle cx="164" cy="100" r="2.6" fill="#8A6421"/>
+          <circle cx="55" cy="55" r="2.2" fill="#B88B2E"/>
+          <circle cx="145" cy="55" r="2.2" fill="#B88B2E"/>
+          <circle cx="55" cy="145" r="2.2" fill="#B88B2E"/>
+          <circle cx="145" cy="145" r="2.2" fill="#B88B2E"/>
+
+          <!-- Perfectly Symmetrical Inner Divider Flourishes -->
+          <path d="M76 72 Q100 64 124 72" stroke="#B88B2E" stroke-width="1.2" fill="none"/>
+          <circle cx="100" cy="67" r="1.8" fill="#8A6421"/>
+          <path d="M76 128 Q100 136 124 128" stroke="#B88B2E" stroke-width="1.2" fill="none"/>
+        </svg>
+
+        <!-- Centered Balanced Typography Inside the Symmetrical Mandala -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div class="flex items-center justify-center gap-1.5 font-cinzel font-bold text-xl sm:text-2xl tracking-widest gold-gradient-text leading-none">
+            <span class="w-6 text-center">U</span>
+            <span class="text-xs text-[#9A7229]">✦</span>
+            <span class="w-6 text-center">K</span>
+          </div>
+          <span class="font-cinzel text-[8px] tracking-[0.28em] text-gold-dark uppercase mt-1">02 • 12 • 2026</span>
+        </div>
+      </button>
+
+      <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-bronze mt-1">The Kohli &amp; Mahajan Families</p>
+      <p class="font-cormorant italic text-lg sm:text-xl text-[#6A4E2E] mt-1">Cordially invite you to the wedding celebrations of</p>
+
+      <h1 class="font-script text-4xl sm:text-5xl gold-gradient-text my-2 py-1">
+        Utkristh &amp; Kriti
+      </h1>
+
+      <div class="flex items-center justify-center gap-3 text-xs sm:text-sm font-cinzel text-gold-dark tracking-widest my-2">
+        <span>NOV 30</span>
+        <span class="text-gold">✦</span>
+        <span>DEC 01</span>
+        <span class="text-gold">✦</span>
+        <span>DEC 02, 2026</span>
+      </div>
+      <p class="font-sans text-xs text-[#7D5E3C] mb-5">Ludhiana &amp; Jalandhar, Punjab</p>
+
+      <!-- BULLETPROOF OPEN INVITATION BUTTON -->
+      <button
+        id="open-invite-btn"
+        type="button"
+        onclick="window.openRoyalInvitation()"
+        style="z-index: 50; pointer-events: auto; position: relative;"
+        class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#8D6420] via-[#C59B27] to-[#8D6420] text-ivory font-cinzel text-xs sm:text-sm tracking-[0.2em] uppercase shadow-lg hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 border border-gold-light/60 cursor-pointer"
+      >
+        <span>Open Royal Invitation</span>
+        <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+
+      <p class="font-sans text-[11px] text-[#8E6F4A] mt-3 flex items-center justify-center gap-1.5 pointer-events-none">
+        <span>🎶</span> Tap the button or royal seal above to enter with music
+      </p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TOP FLOATING NAVIGATION & CONTROLS BAR
+       ========================================================= -->
+  <header class="sticky top-3 z-30 px-3 sm:px-6 max-w-5xl mx-auto no-print">
+    <div class="bg-[#FFFDF8]/90 backdrop-blur-md border border-gold/50 rounded-full shadow-lg px-3 sm:px-5 py-2 flex items-center justify-between gap-2">
+      <!-- Couple Symmetrical Mini Crest Brand -->
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#DFC075] via-[#B88B2E] to-[#7E5B17] p-[2px] shadow flex items-center justify-center">
+          <div class="w-full h-full rounded-full bg-[#FFFDF8] border border-gold/60 flex items-center justify-center font-cinzel font-bold text-[10px] tracking-tighter text-gold-dark">
+            U✦K
+          </div>
+        </div>
+        <div class="hidden sm:block">
+          <p class="font-cinzel text-xs font-semibold text-gold-dark tracking-wider leading-none">UTKRISTH &amp; KRITI</p>
+          <p class="font-sans text-[10px] text-[#8A6B47]">Nov 30 – Dec 2, 2026</p>
+        </div>
+      </a>
+
+      <!-- View Mode Switcher: Classic Card vs Full Interactive Suite -->
+      <div class="flex items-center bg-[#F4E8D5] p-1 rounded-full border border-gold/30">
+        <button
+          id="btnModeFull"
+          type="button"
+          onclick="switchViewMode('full')"
+          class="px-3 py-1 rounded-full text-xs font-cinzel tracking-wider transition-all bg-[#8D6420] text-ivory shadow-sm"
+        >
+          Interactive Suite
+        </button>
+        <button
+          id="btnModeCard"
+          type="button"
+          onclick="switchViewMode('card')"
+          class="px-3 py-1 rounded-full text-xs font-cinzel tracking-wider transition-all text-[#6E4F2A] hover:text-gold-dark"
+        >
+          Classic Card Only
+        </button>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-1.5 sm:gastroke="#5A380C" stroke-width="1.2"/></g>
             <g transform="rotate(270)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
             <g transform="rotate(315)"><path d="M 0,-115 C 16,-96 22,-78 0,-64 C -22,-78 -16,-96 0,-115 Z" fill="url(#sealGoldGrad)" stroke="#5A380C" stroke-width="1.2"/></g>
 
